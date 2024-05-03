@@ -30,8 +30,7 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Review(){
-
+    public Review() {
     }
 
     public Review(Long id, String text, Movie movie, User user) {
