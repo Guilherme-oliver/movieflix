@@ -7,6 +7,9 @@ public class GenreDTO {
     private Long id;
     private String name;
 
+    public GenreDTO() {
+    }
+
     public GenreDTO(Genre x) {
         id = x.getId();
         name = x.getName();

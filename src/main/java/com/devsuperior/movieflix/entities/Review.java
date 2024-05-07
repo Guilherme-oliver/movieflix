@@ -1,6 +1,7 @@
 package com.devsuperior.movieflix.entities;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

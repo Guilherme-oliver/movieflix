@@ -10,7 +10,6 @@ import com.devsuperior.movieflix.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Service
 public class ReviewService {
 
@@ -25,13 +24,20 @@ public class ReviewService {
     }
 
     @Transactional
-    public ReviewDTO insert(ReviewDTO dto) {
-        Movie movie = movieRepository.findById(dto.getMovieId()).orElseThrow(() -> new IllegalArgumentException("Movie not found"));
-        User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-        Review review = new Review(null, dto.getText(), movie, user);
+    public ReviewDTO createReview(ReviewDTO reviewDTO) {
+        Movie movie = movieRepository.getReferenceById(reviewDTO.getMovieId());
+        User user = userRepository.getReferenceById(reviewDTO.getUserId());
+        Review review = new Review();
+        review.setText(reviewDTO.getText());
+        review.setMovie(movie);
+        review.setUser(user);
         review = reviewRepository.save(review);
-
-        return new ReviewDTO(review.getId(), review.getText(), review.getMovie().getId(), review.getUser().getId(), review.getUser().getUsername(), review.getUser().getPassword());
+        ReviewDTO dto = new ReviewDTO(review);
+        dto.setText(review.getText());
+        dto.setUserName(dto.getUserName());
+        dto.setUserEmail(dto.getUserEmail());
+        dto.setMovieId(dto.getMovieId());
+        dto.setUserId(dto.getUserId());
+        return dto;
     }
 }

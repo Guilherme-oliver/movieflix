@@ -18,9 +18,6 @@ public class ReviewDTO {
     private String userName;
     private String userEmail;
 
-	public ReviewDTO() {
-	}
-
 	public ReviewDTO(Long id, String text, Long movieId, Long userId, String userName, String userEmail) {
 		this.id = id;
 		this.text = text;
@@ -30,15 +27,17 @@ public class ReviewDTO {
 		this.userEmail = userEmail;
 	}
 
-	public static ReviewDTO fromEntity(Review review) {
-		ReviewDTO dto = new ReviewDTO();
-		dto.setId(review.getId());
-		dto.setText(review.getText());
-		dto.setMovieId(review.getMovie().getId());
-		dto.setUserId(review.getUser().getId());
-		dto.setUserName(review.getUser().getUsername());
-		dto.setUserEmail(review.getUser().getEmail());
-		return dto;
+	public ReviewDTO(Review review) {
+		this.id = review.getId();
+		this.text = review.getText();
+		this.movieId = review.getMovie().getId();
+		this.userId = review.getUser().getId();
+		this.userName = review.getUser().getUsername();
+		this.userEmail = review.getUser().getEmail();
+	}
+
+	public ReviewDTO() {
+
 	}
 
 	public Long getId() {
